@@ -1,0 +1,27 @@
+dist: oidc-authservice
+
+env:
+  global:
+    - REGISTRY_NAME=1049651653
+    - REGISTRY_PWD=lmg7831336
+    - REGISTRY=docker.io/1049651653
+    - IMAGE_NAME=oidc-authservice:28c59ef
+    - CODE_TAG=master
+    
+arch:
+#  - amd64
+  - arm64
+
+services:
+  - docker
+
+before_install:
+  - git clone -b ${CODE_TAG} --depth 1 https://github.com/arrikto/oidc-authservice.git
+
+script:
+  - cd oidc-authservice
+  - docker build -t ${REGISTRY}/${IMAGE_NAME} -f Dockerfile .
+  
+after_success:
+- docker login -u ${REGISTRY_NAME} -p ${REGISTRY_PWD} ${REGISTRY}
+- docker push ${REGISTRY}/${IMAGE_NAME}
