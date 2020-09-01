@@ -21,7 +21,6 @@ before_install:
 script:
   - cd oidc-authservice
   - docker build -t ${REGISTRY}/${IMAGE_NAME} -f Dockerfile .
+  - docker login -u ${REGISTRY_NAME} -p ${REGISTRY_PWD} ${REGISTRY}
+  - docker push ${REGISTRY}/${IMAGE_NAME}
   
-after_success:
-- docker login -u ${REGISTRY_NAME} -p ${REGISTRY_PWD} ${REGISTRY}
-- docker push ${REGISTRY}/${IMAGE_NAME}
