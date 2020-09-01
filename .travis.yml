@@ -2,9 +2,9 @@ dist: oidc-authservice
 
 env:
   global:
-    - REGISTRY_NAME=1049651653
-    - REGISTRY_PWD=lmg7831336
-    - REGISTRY=docker.io/1049651653
+    - REGISTRY_NAME=pksbot
+    - REGISTRY_PWD=Qwer@1234
+    - REGISTRY=docker.io/pksbot
     - IMAGE_NAME=oidc-authservice:28c59ef
     - CODE_TAG=master
     
