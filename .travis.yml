@@ -5,21 +5,26 @@ env:
     - IMAGE_NAME=pkskubeflow/oidc-authservice:28c59ef
     - CODE_TAG=master
     
-#arch:
-#  - amd64
+arch:
+  - amd64
 #  - arm64
 
 services:
   - docker
 
 before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - git clone -b ${CODE_TAG} --depth 1 https://github.com/arrikto/oidc-authservice.git
 
 script:
   - cd oidc-authservice
+  - docker version
   - docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
-#  - docker buildx create --use
+  - docker buildx create --use
 #  - docker build -t ${IMAGE_NAME} -f Dockerfile .
-  - docker buildx build --platform linux/arm64,linux/amd64 -t ${IMAGE_NAME} -f Dockerfile . 
+  - docker buildx build --push --platform linux/amd64,linux/arm64 -t ${IMAGE_NAME} -f Dockerfile . 
 #  - docker push ${IMAGE_NAME}
   
