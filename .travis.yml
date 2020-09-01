@@ -2,6 +2,7 @@ dist: oidc-authservice
 
 env:
   global:
+    - DOCKER_CLI_EXPERIMENTAL=1
     - IMAGE_NAME=pkskubeflow/oidc-authservice:28c59ef
     - CODE_TAG=master
     
