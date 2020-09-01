@@ -4,7 +4,7 @@ env:
   global:
     - REGISTRY_NAME=pksbot
     - REGISTRY_PWD=Qwer@1234
-    - REGISTRY=docker.io/pksbot
+    - REGISTRY=docker.io/pkskubeflow
     - IMAGE_NAME=oidc-authservice:28c59ef
     - CODE_TAG=master
     
