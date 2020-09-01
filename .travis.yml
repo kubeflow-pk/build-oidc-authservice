@@ -2,10 +2,7 @@ dist: oidc-authservice
 
 env:
   global:
-    - REGISTRY_NAME=pksbot
-    - REGISTRY_PWD=Qwer@1234
-    - REGISTRY=docker.io/pkskubeflow
-    - IMAGE_NAME=oidc-authservice:28c59ef
+    - IMAGE_NAME=pkskubeflow/oidc-authservice:28c59ef
     - CODE_TAG=master
     
 arch:
@@ -20,7 +17,7 @@ before_install:
 
 script:
   - cd oidc-authservice
-  - docker build -t ${REGISTRY}/${IMAGE_NAME} -f Dockerfile .
-  - docker login -u ${REGISTRY_NAME} -p ${REGISTRY_PWD} ${REGISTRY}
-  - docker push ${REGISTRY}/${IMAGE_NAME}
+  - docker build -t ${IMAGE_NAME} -f Dockerfile .
+  - docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
+  - docker push ${IMAGE_NAME}
   
