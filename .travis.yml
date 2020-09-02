@@ -25,8 +25,8 @@ before_install:
   - docker version
   - docker buildx version
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-  - docker buildx rm builder
-  - docker buildx create --name builder --driver docker-container --use
+#  - docker buildx rm builder
+  - docker buildx create --use
   - docker buildx inspect --bootstrap
   - git clone -b ${CODE_TAG} --depth 1 https://github.com/arrikto/oidc-authservice.git
 
