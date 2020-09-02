@@ -29,7 +29,7 @@ before_install:
 script:
   - cd oidc-authservice
   - docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
-  - docker buildx create --use
+  - docker buildx create --use --platform linux/amd64,linux/arm64
   - docker buildx inspect --bootstrap
 #  - docker build -t ${IMAGE_NAME} -f Dockerfile .
   - docker buildx build --push --platform linux/amd64,linux/arm64 -t ${IMAGE_NAME} -f Dockerfile . 
