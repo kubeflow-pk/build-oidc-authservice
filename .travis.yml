@@ -1,14 +1,10 @@
-dist: oidc-authservice
+dist: bionic
 
 env:
   global:
     - DOCKER_CLI_EXPERIMENTAL=enabled
     - IMAGE_NAME=pkskubeflow/oidc-authservice:28c59ef
     - CODE_TAG=master
-    
-arch:
-  - amd64
-#  - arm64
 
 services:
   - docker
@@ -25,7 +21,6 @@ before_install:
   - docker version
   - docker buildx version
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-#  - docker buildx rm builder
   - docker buildx create --use
   - docker buildx inspect --bootstrap
   - git clone -b ${CODE_TAG} --depth 1 https://github.com/arrikto/oidc-authservice.git
@@ -33,9 +28,4 @@ before_install:
 script:
   - cd oidc-authservice
   - docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}
-#  - docker buildx create --use --platform linux/amd64,linux/arm64
-#  - docker buildx inspect --bootstrap
-#  - docker build -t ${IMAGE_NAME} -f Dockerfile .
-  - docker buildx build --push --platform linux/amd64,linux/arm64 -t ${IMAGE_NAME} -f Dockerfile .
-#  - docker push ${IMAGE_NAME}
-  
+  - docker buildx build --push --platform linux/amd64,linux/arm64 -t ${IMAGE_NAME} -f Dockerfile .  
